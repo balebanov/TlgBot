@@ -9,7 +9,7 @@ bot = telebot.TeleBot(config.token)
 bot.remove_webhook()
 
 def ping_me():
-	hostname = "82.199.120.22"
+	hostname = "IP OR HOST"
 	response = os.system("ping -c 1 " + hostname)
 	#response = os.system("ps -e | grep apache2")
 
