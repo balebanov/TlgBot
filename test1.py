@@ -9,7 +9,7 @@ bot = telebot.TeleBot(config.token)
 bot.remove_webhook()
 
 def ping_me():
-	hostname = "IP OR HOST"
+	hostname = "82.199.120.22"
 	response = os.system("ping -c 1 " + hostname)
 	#response = os.system("ps -e | grep apache2")
 
@@ -21,11 +21,11 @@ def ping_me():
 def show_messages(message):
 	text = "Message - "
 	result = text + message
-	print(result)
+	return(result)
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.reply_to(message, "Привет! Ты можешь узнать\n/time - время\n/ping - работуспособность моей сети")
+    bot.send_message(message.chat.id, "Привет! Ты можешь узнать\n/time - время\n/ping - работуспособность моей сети")
 
 @bot.message_handler(commands=['time'])
 def get_me(message):
@@ -34,5 +34,9 @@ def get_me(message):
 @bot.message_handler(commands=['ping'])
 def get_me(message):
 	bot.send_message(message.chat.id, ping_me())
+
+@bot.message_handler(content_types=["text"])
+def repeat_all_messages(message):	
+    bot.send_message(message.chat.id, show_messages(message.text))
 
 bot.polling()
